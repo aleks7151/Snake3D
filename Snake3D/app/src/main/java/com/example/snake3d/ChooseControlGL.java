@@ -148,35 +148,8 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
                     "    vec4 a_pos = m_model * a_Position;" +
                     "    vec4 tmp = a_pos;" +
-                    "    if (chooseC == 0 && l_top == 1){" +
-                    "       if (a_Position.xyz == vec3(-a + a / 2.0 + a / 4.0, 0.0, 0.0)){" +
-                    "           if (l_rotate == 0)" +
-                    "               tmp.x = tmp.x - (a / 2.0) * (scale - 1.0);" +
-                    "           else" +
-                    "               tmp.x = tmp.x + (a / 2.0) * (scale - 1.0);" +
-                    "       }" +
-                    "       else if (a_Position.xyz == vec3(-a - a / 2.0 + a / 4.0, -a - a / 2.0 - a / 4.0 - a / 2.0, 0.0)){" +
-                    "           if (l_rotate == 0)" +
-                    "               tmp.y = tmp.y + 7.5 / 8.0 * a * (scale - 1.0);" +
-                    "           else" +
-                    "               tmp.y = tmp.y - 7.5 / 8.0 * a * (scale - 1.0);" +
-                    "       }" +
-                    "    }" +
-                    "    else if (chooseC == 0 && l_down == 1){" +
-                    "       if (a_Position.xyz == vec3(-a + a / 2.0 + a / 4.0, - 2.0 * a - a, 0.0)){" +
-                    "           if (l_rotate == 0)" +
-                    "               tmp.x = tmp.x - (a / 2.0) * (scale - 1.0);" +
-                    "           else" +
-                    "               tmp.x = tmp.x + (a / 2.0) * (scale - 1.0);" +
-                    "       }" +
-                    "       else if (a_Position.xyz == vec3(-a - a / 2.0 + a / 4.0, -a - a / 4.0 + a / 2.0, 0.0)){" +
-                    "           if (l_rotate == 0)" +
-                    "               tmp.y = tmp.y - 7.5 / 8.0 * a * (scale - 1.0);" +
-                    "           else" +
-                    "               tmp.y = tmp.y + 7.5 / 8.0 * a * (scale - 1.0);" +
-                    "       }" +
-                    "    }" +
-                    "    else if (chooseC == 1 && (l_top == 1 || l_down == 1)){" +//право верх
+
+                    "    if (chooseC == 1 && (l_top == 1 || l_down == 1)){" +//право верх
                     "       if (a_Position.xyz == vec3(a + a / 2.0, 3.0 * a, 0.0)){" +
                     "           float pif = sqrt(step(a_Position.x - (-a - a / 2.0), 2.0) + step(a_Position.y, 2.0));" +
                     "           if (l_rotate == 0)" +
@@ -403,55 +376,55 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         float[] control = {
                 //правая
                 0, 0, 0,
-                -a / 2, -3 * a, 0,
+//                -a / 2, -3 * a, 0,
                 0, -3 * a, 0,
 
-                0, 0, 0,
-                -a / 2, 0, 0,
-                -a / 2, -3 * a, 0,
+//                0, 0, 0,
+//                -a / 2, 0, 0,
+//                -a / 2, -3 * a, 0,
 
                 //верх
-                -a / 2 + a / 4, 0, 0,
-                -a + a / 4, -a / 2, 0,
-                -a / 2 + a / 4, -a / 2, 0,
+//                -a / 2 + a / 4, 0, 0,
+//                -a + a / 4, -a / 2, 0,
+//                -a / 2 + a / 4, -a / 2, 0,
 
-                -a / 2 + a / 4, 0, 0,
+                0, 0, 0,
                 -a + a / 4, 0, 0,
-                -a + a / 4, -a / 2, 0,
+//                -a + a / 4, -a / 2, 0,
 
                 //низ
-                -a / 2 + a / 4, - 2 * a - a / 2, 0,
+//                -a / 2 + a / 4, - 2 * a - a / 2, 0,
                 -a + a / 4, - 2 * a - a, 0,
-                -a / 2 + a / 4, - 2 * a - a, 0,
+                0, - 2 * a - a, 0,
 
-                -a / 2 + a / 4, - 2 * a - a / 2, 0,
-                -a + a / 4, - 2 * a - a / 2, 0,
-                -a + a / 4, - 2 * a - a, 0,
+//                -a / 2 + a / 4, - 2 * a - a / 2, 0,
+//                -a + a / 4, - 2 * a - a / 2, 0,
+//                -a + a / 4, - 2 * a - a, 0,
 
                 //верх лево
-                -a + a / 4, 0, 0,
-                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере a; 2a + a/4
-                -a + a / 2 + a / 4, 0, 0,                   //используется в шейдере
+//                -a + a / 4, 0, 0,
+//                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере a; 2a + a/4
+//                -a + a / 2 + a / 4, 0, 0,                   //используется в шейдере
 
                 -a + a / 4, 0, 0,
                 -a - a / 2 + a / 4, -a - a / 4, 0,
-                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере
+//                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере
 
                 //низ лево
-                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
+//                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
                 -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
                 -a + a / 4, - 3 * a, 0,
 
-                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
-                -a - a / 2 + a / 4, -a + a / 2 - a / 4, 0,  //используется в шейдере
-                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
+//                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
+//                -a - a / 2 + a / 4, -a + a / 2 - a / 4, 0,  //используется в шейдере
+//                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
 
                 //лево середина
-                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
-                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
-                -a + a / 4, -a - a / 2 - a / 4 - 0.1f * a, 0,
+//                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
+//                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
+//                -a + a / 4, -a - a / 2 - a / 4 - 0.1f * a, 0,
 
-                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
+//                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
                 -a - a / 2 + a / 4, -a - a / 4, 0,
                 -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
 
@@ -522,40 +495,40 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
     {
         float[] control = {
                 //нижняя
-                a + a / 2, a / 2, 0,
+//                a + a / 2, a / 2, 0,
                 -a - a / 2, 0, 0,
                 a + a / 2, 0, 0,
 
-                a + a / 2, a / 2, 0,
-                -a - a / 2, a / 2, 0,
-                -a - a / 2, 0, 0,
+//                a + a / 2, a / 2, 0,
+//                -a - a / 2, a / 2, 0,
+//                -a - a / 2, 0, 0,
 
                 //левая
-                -a, 3 * a, 0,
-                -a - a / 2, 0, 0,
-                -a, 0, 0,
+//                -a, 3 * a, 0,
+//                -a - a / 2, 0, 0,
+//                -a, 0, 0,
 
-                -a, 3 * a, 0,
+//                -a, 3 * a, 0,
                 -a - a / 2, 3 * a, 0,
                 -a - a / 2, 0, 0,
 
                 //правая (право верх)
                 a + a / 2, 3 * a, 0,            //используется в шейдере
-                a, 0, 0,
+//                a, 0, 0,
                 a + a / 2, 0, 0,
 
-                a + a / 2, 3 * a, 0,            //используется в шейдере
-                a, 2 * a + a / 2, 0,            //используется в шейдере
-                a, 0, 0,
+//                a + a / 2, 3 * a, 0,            //используется в шейдере
+//                a, 2 * a + a / 2, 0,            //используется в шейдере
+//                a, 0, 0,
 
                 //верхняя (лево верх)
-                a + a / 2, 3 * a, 0,            //используется в шейдере
-                -a - a / 2, 2 * a + a / 2, 0,
-                a, 2 * a + a / 2, 0,            //используется в шейдере
+//                a + a / 2, 3 * a, 0,            //используется в шейдере
+//                -a - a / 2, 2 * a + a / 2, 0,
+//                a, 2 * a + a / 2, 0,            //используется в шейдере
 
                 a + a / 2, 3 * a, 0,            //используется в шейдере
                 -a - a / 2, 3 * a, 0,
-                -a - a / 2, 2 * a + a / 2, 0,
+//                -a - a / 2, 2 * a + a / 2, 0,
 
 
                 ///////Отрисовка этой херни сверху 2.0
@@ -567,7 +540,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
                 -a - a / 2, 3 * a, 0,
                 -a - a / 2, 0, 0,
         };
-        controlSecond = new float[4 * 18];
+        controlSecond = new float[control.length];
         for (int i = 0; i < controlSecond.length; i++)
             controlSecond[i] = control[i];
         return control;
@@ -756,7 +729,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
         float[] vertices_normal = new float[vertices.length];
 
-        for (int i = 0; i < 10 + 10 + 2 * 2 + 2 + control.length / 9; i++) {
+        for (int i = 0; i < 10 + 10 + 2 * 2 + 2; i++) {
             for (int i1 = 0; i1 < 3; i1++) {
                 int i2;
                 int i3;
@@ -786,10 +759,46 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             }
         }
 
+        for (int i = 0; i < 4; i++) {
+            for (int i1 = 0; i1 < 3; i1++) {
+                int i2;
+                int i3;
+                if (i1 == 0) {
+                    i2 = 1;
+                    i3 = 2;
+                } else if (i1 == 1) {
+                    i2 = 2;
+                    i3 = 0;
+                } else {
+                    i2 = 0;
+                    i3 = 1;
+                }
+                float[] a_vector = {
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i2 * 3] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3],
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i2 * 3 + 1] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 1],
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i2 * 3 + 2] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 2],
+                };
+                float[] b_vector = {
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i3 * 3] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3],
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i3 * 3 + 1] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 1],
+                        vertices[vertices.length - 4 * 3 * 3 + i * 9 + i3 * 3 + 2] - vertices[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 2],
+                };
+                vertices_normal[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3] = a_vector[1] * b_vector[2] - b_vector[1] * a_vector[2];
+                vertices_normal[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 1] = b_vector[0] * a_vector[2] - a_vector[0] * b_vector[2];
+                vertices_normal[vertices.length - 4 * 3 * 3 + i * 9 + i1 * 3 + 2] = a_vector[0] * b_vector[1] - b_vector[0] * a_vector[1];
+            }
+        }
+
         for (int i = 0; i < ch_setka; i += 3) {
             vertices_normal[i] = vertices_normal[ch_setka];
             vertices_normal[i + 1] = vertices_normal[ch_setka + 1];
             vertices_normal[i + 2] = vertices_normal[ch_setka + 2];
+        }
+
+        for (int i = vertices.length - control.length - 36; i < vertices.length - 36; i += 3){
+            vertices_normal[i] = 0;
+            vertices_normal[i + 1] = 0;
+            vertices_normal[i + 2] = 1;
         }
 
         float[] vertices_color_0 = {
@@ -996,7 +1005,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             Matrix.translateM(mModelMatrix, 0, k_left + a * i + x, k, z2);//+x, чтобы копировать вправо/влево
             bindMatrix();
 
-            glDrawArrays(GL_TRIANGLES, 172, 6);
+            glDrawArrays(GL_TRIANGLES, 132, 6);
             Matrix.setIdentityM(mModelMatrix, 0);
             Matrix.setIdentityM(mRotateMatrix, 0);
         }
@@ -1008,7 +1017,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             Matrix.translateM(mModelMatrix, 0, k, k_bottom + a * i + y, z2);//+y, чтобы копировать вверх/вниз
             bindMatrix();
 
-            glDrawArrays(GL_TRIANGLES, 178, 6);
+            glDrawArrays(GL_TRIANGLES, 138, 6);
             Matrix.setIdentityM(mModelMatrix, 0);
             Matrix.setIdentityM(mRotateMatrix, 0);
         }
@@ -1366,35 +1375,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
     private void shader_func(float[] a_Position, float[] tmp, int l_rotate, float scale, int l_down, int l_top, int chooseC, ObjectOutputStream oos)
     {
-        if (chooseC == 0 && l_top == 1){
-            if (check_vec(a_Position, new float[] {-a + a / 2 + a / 4, 0, 0})){
-                if (l_rotate == 0)
-                   tmp[0] = tmp[0] - (a / 2) * (scale - 1);
-                else
-                   tmp[0] = tmp[0] + (a / 2) * (scale - 1);
-           }
-           else if (check_vec(a_Position, new float[] {-a - a / 2 + a / 4, -a - a / 2 - a / 4 - a / 2, 0})){
-               if (l_rotate == 0)
-                   tmp[1] = tmp[1] + 7.5f / 8 * a * (scale - 1);
-               else
-                   tmp[1] = tmp[1] - 7.5f / 8 * a * (scale - 1);
-           }
-        }
-        else if (chooseC == 0 && l_down == 1){
-            if (check_vec(a_Position, new float[] {-a + a / 2 + a / 4, - 2 * a - a, 0})){
-                if (l_rotate == 0)
-                   tmp[0] = tmp[0] - (a / 2) * (scale - 1);
-                else
-                   tmp[0] = tmp[0] + (a / 2) * (scale - 1);
-            }
-            else if (check_vec(a_Position, new float[] {-a - a / 2 + a / 4, -a - a / 4 + a / 2, 0})){
-                if (l_rotate == 0)
-                   tmp[1] = tmp[1] - 7.5f / 8 * a * (scale - 1);
-                else
-                   tmp[1] = tmp[1] + 7.5f / 8 * a * (scale - 1);
-            }
-        }
-        else if (chooseC == 1 && (l_top == 1 || l_down == 1)){//право верх
+        if (chooseC == 1 && (l_top == 1 || l_down == 1)){//право верх
             if (check_vec(a_Position, new float[] {a + a / 2, 3 * a, 0})){
                 float pif = (float)Math.sqrt(Math.pow(a_Position[0] - (-a - a / 2), 2) + Math.pow(a_Position[1], 2));
                 if (l_rotate == 0)
@@ -1455,10 +1436,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.scaleM(m3Scale, 0, scale, scale, 1);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 24 * 3 + j * 3; i < 3 + 24 * 3 + j * 3; i++) {
-                tmp[i - (24 * 3 + j * 3)] = controlFirst[i];
-                tmp_start[i - (24 * 3 + j * 3)] = controlFirst[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 8 * 3 + j * 3; i < 3 + 8 * 3 + j * 3; i++) {
+                tmp[i - (8 * 3 + j * 3)] = controlFirst[i];
+                tmp_start[i - (8 * 3 + j * 3)] = controlFirst[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1466,10 +1447,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             shader_func(tmp_start, tmp, check, scale, 1, 0, 0, oos);//лево низ
         }
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 18 * 3 + j * 3; i < 3 + 18 * 3 + j * 3; i++) {
-                tmp[i - (18 * 3 + j * 3)] = controlFirst[i];
-                tmp_start[i - (18 * 3 + j * 3)] = controlFirst[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 6 * 3 + j * 3; i < 3 + 6 * 3 + j * 3; i++) {
+                tmp[i - (6 * 3 + j * 3)] = controlFirst[i];
+                tmp_start[i - (6 * 3 + j * 3)] = controlFirst[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1482,7 +1463,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, -a / 4 * (scale - 1), 0, 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 2; j++) {
             for (int i = j * 3; i < 3 + j * 3; i++) {
                 tmp[i - (j * 3)] = controlFirst[i];
                 tmp_start[i - (j * 3)] = controlFirst[i];
@@ -1498,10 +1479,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, -(scale - 1) * a - ((a / 2) * (scale - 1)) / 2, 0, 0);//-(scaleX - 1) * a - ((a / 2) * (scaleX - 1)) / 2
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 30 * 3 + j * 3; i < 3 + 30 * 3 + j * 3; i++) {
-                tmp[i - (30 * 3 + j * 3)] = controlFirst[i];
-                tmp_start[i - (30 * 3 + j * 3)] = controlFirst[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 10 * 3 + j * 3; i < 3 + 10 * 3 + j * 3; i++) {
+                tmp[i - (10 * 3 + j * 3)] = controlFirst[i];
+                tmp_start[i - (10 * 3 + j * 3)] = controlFirst[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1511,13 +1492,14 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, (scale - 1) * a + ((a / 2) * (scale - 1)) / 2, 0, 0);//(scaleX - 1) * a + ((a / 2) * (scaleX - 1)) / 2
 
         Matrix.setIdentityM(m3Scale, 0);
-        Matrix.scaleM(m3Scale, 0, scale, 1, 1);
+        Matrix.scaleM(m3Scale, 0, scale - 1f / 3f * (scale - 1), 1, 1);
+        Matrix.translateM(m2Rotate, 0, -a / 4 * (scale - 1), 0, 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 6 * 3 + j * 3; i < 3 + 6 * 3 + j * 3; i++) {
-                tmp[i - (6 * 3 + j * 3)] = controlFirst[i];
-                tmp_start[i - (6 * 3 + j * 3)] = controlFirst[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 2 * 3 + j * 3; i < 3 + 2 * 3 + j * 3; i++) {
+                tmp[i - (2 * 3 + j * 3)] = controlFirst[i];
+                tmp_start[i - (2 * 3 + j * 3)] = controlFirst[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1528,10 +1510,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, 0, -(scale - 1) * 3 * a, 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 12 * 3 + j * 3; i < 3 + 12 * 3 + j * 3; i++) {
-                tmp[i - (12 * 3 + j * 3)] = controlFirst[i];
-                tmp_start[i - (12 * 3 + j * 3)] = controlFirst[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 4 * 3 + j * 3; i < 3 + 4 * 3 + j * 3; i++) {
+                tmp[i - (4 * 3 + j * 3)] = controlFirst[i];
+                tmp_start[i - (4 * 3 + j * 3)] = controlFirst[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1557,10 +1539,12 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
         glUniform1f(locaionScale, scale);
         glUniform1i(l_down, 1);
-        glDrawArrays(GL_TRIANGLES, 94, 6);//лево низ
+//        glDrawArrays(GL_TRIANGLES, 94, 6);//лево низ
+        glDrawArrays(GL_LINES, 78, 2);//лево низ
         glUniform1i(l_down, 0);
         glUniform1i(l_top, 1);
-        glDrawArrays(GL_TRIANGLES, 88, 6);//лево верх
+//        glDrawArrays(GL_TRIANGLES, 88, 6);//лево верх
+        glDrawArrays(GL_LINES, 76, 2);//лево верх
         glUniform1i(l_top, 0);
 
 
@@ -1568,23 +1552,30 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.scaleM(mScaleMatrix, 0, 1, scale, 1);
         Matrix.translateM(mRotateMatrix, 0, -a / 4 * (scale - 1), 0, 0);
         bindMatrix();
-        glDrawArrays(GL_TRIANGLES, 70, 6);//правая
+//        glDrawArrays(GL_TRIANGLES, 70, 6);//правая
+        glDrawArrays(GL_LINES, 70, 2);//правая
         Matrix.translateM(mRotateMatrix, 0, a / 4 * (scale - 1), 0, 0);
 
         Matrix.translateM(mRotateMatrix, 0, -(scale - 1) * a - ((a / 2) * (scale - 1)) / 2, 0, 0);//-(scaleX - 1) * a - ((a / 2) * (scaleX - 1)) / 2
         bindMatrix();
-        glDrawArrays(GL_TRIANGLES, 100, 6);//лево середина
+//        glDrawArrays(GL_TRIANGLES, 100, 6);//лево середина
+        glDrawArrays(GL_LINES, 80, 2);//лево середина
         Matrix.translateM(mRotateMatrix, 0, (scale - 1) * a + ((a / 2) * (scale - 1)) / 2, 0, 0);//(scaleX - 1) * a + ((a / 2) * (scaleX - 1)) / 2
 
         Matrix.setIdentityM(mScaleMatrix, 0);
-        Matrix.scaleM(mScaleMatrix, 0, scale, 1, 1);
+        Matrix.translateM(mRotateMatrix, 0, -a / 4 * (scale - 1), 0, 0);
+        Matrix.scaleM(mScaleMatrix, 0, scale - 1f / 3f * (scale - 1), 1, 1);
         bindMatrix();
+        Matrix.translateM(mRotateMatrix, 0, a / 4 * (scale - 1), 0, 0);
 
-        glDrawArrays(GL_TRIANGLES, 76, 6);//верхняя
+//        glDrawArrays(GL_TRIANGLES, 76, 6);//верхняя
+        glDrawArrays(GL_LINES, 72, 2);//верхняя
 
         Matrix.translateM(mRotateMatrix, 0, 0, -(scale - 1) * 3 * a, 0);
+        Matrix.translateM(mRotateMatrix, 0, -a / 4 * (scale - 1), 0, 0);
         bindMatrix();
-        glDrawArrays(GL_TRIANGLES, 82, 6);//нижняя
+//        glDrawArrays(GL_TRIANGLES, 82, 6);//нижняя
+        glDrawArrays(GL_LINES, 74, 2);//нижняя
 
         glUniform4f(new_Color, 0, 0, 0, 0);
         Matrix.setIdentityM(mModelMatrix, 0);
@@ -1651,10 +1642,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, -1.5f * a * (scale - 1), 0, 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 6 * 3 + j * 3; i < 3 /*length_tmp*/ + 6 * 3 + j * 3; i++) {
-                tmp[i - (6 * 3 + j * 3)] = controlSecond[i];
-                tmp_start[i - (6 * 3 + j * 3)] = controlSecond[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 2 * 3 + j * 3; i < 3 /*length_tmp*/ + 2 * 3 + j * 3; i++) {
+                tmp[i - (2 * 3 + j * 3)] = controlSecond[i];
+                tmp_start[i - (2 * 3 + j * 3)] = controlSecond[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1668,10 +1659,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, 1.5f * a * (scale - 1), 0, 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 12 * 3 + j * 3; i < 3 /*length_tmp*/ + 12 * 3 + j * 3; i++) {
-                tmp[i - (12 * 3 + j * 3)] = controlSecond[i];
-                tmp_start[i - (12 * 3 + j * 3)] = controlSecond[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 4 * 3 + j * 3; i < 3 /*length_tmp*/ + 4 * 3 + j * 3; i++) {
+                tmp[i - (4 * 3 + j * 3)] = controlSecond[i];
+                tmp_start[i - (4 * 3 + j * 3)] = controlSecond[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1686,7 +1677,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.scaleM(m3Scale, 0, scale, 1, 1);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 2; j++) {
             for (int i = j * 3; i < 3 /*length_tmp*/ + j * 3; i++) {
                 tmp[i - (j * 3)] = controlSecond[i];
                 tmp_start[i - (j * 3)] = controlSecond[i];
@@ -1700,10 +1691,10 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(m2Rotate, 0, 0, 3 * a * (scale - 1), 0);
         mvBindMatrix();
 
-        for (int j = 0; j < 6; j++) {
-            for (int i = 18 * 3 + j * 3; i < 3 /*length_tmp*/ + 18 * 3 + j * 3; i++) {
-                tmp[i - (18 * 3 + j * 3)] = controlSecond[i];
-                tmp_start[i - (18 * 3 + j * 3)] = controlSecond[i];
+        for (int j = 0; j < 2; j++) {
+            for (int i = 6 * 3 + j * 3; i < 3 /*length_tmp*/ + 6 * 3 + j * 3; i++) {
+                tmp[i - (6 * 3 + j * 3)] = controlSecond[i];
+                tmp_start[i - (6 * 3 + j * 3)] = controlSecond[i];
             }
             tmp[3] = 1;
             tmp_start[3] = 1;
@@ -1737,14 +1728,14 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
         Matrix.translateM(mRotateMatrix, 0, -1.5f * a * (scale - 1), 0, 0);
         bindMatrix();
-        glDrawArrays(GL_TRIANGLES, 148, 6);//право низ
+        glDrawArrays(GL_LINES, 120, 2);//право низ
         Matrix.translateM(mRotateMatrix, 0, 1.5f * a * (scale - 1), 0, 0);
         bindMatrix();
 
         Matrix.translateM(mRotateMatrix, 0, 1.5f * a * (scale - 1), 0, 0);
         bindMatrix();
         glUniform1i(l_top, 1);
-        glDrawArrays(GL_TRIANGLES, 154, 6);//право верх
+        glDrawArrays(GL_LINES, 122, 2);//право верх
         glUniform1i(l_top, 0);
         Matrix.translateM(mRotateMatrix, 0, -1.5f * a * (scale - 1), 0, 0);
         bindMatrix();
@@ -1754,12 +1745,12 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         bindMatrix();
 
 
-        glDrawArrays(GL_TRIANGLES, 142, 6);//лево низ
+        glDrawArrays(GL_LINES, 118, 2);//лево низ
 
         Matrix.translateM(mRotateMatrix, 0, 0, 3 * a * (scale - 1), 0);
         bindMatrix();
         glUniform1i(l_down, 1);
-        glDrawArrays(GL_TRIANGLES, 160, 6);//лево верх
+        glDrawArrays(GL_LINES, 124, 2);//лево верх
         glUniform1i(l_down, 0);
 
         glUniform4f(new_Color, 0, 0, 0, 0);
@@ -1812,15 +1803,15 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             buttons0(0);
             buttons0(1);
         }
-        ass0(0);
-        ass0(1);
+//        ass0(0);
+//        ass0(1);
 
         glUniform1i(chooseC, 1);
         if (!fig0)
             for (int i = 0; i < 4; i++)
                 buttons1(i);
-        for (int i = 0; i < 4; i++)
-            ass1(i);
+//        for (int i = 0; i < 4; i++)
+//            ass1(i);
     }
 
     void polzunok()

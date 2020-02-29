@@ -1,5 +1,7 @@
 package com.example.snake3d;
 
+import android.graphics.Path;
+import android.util.Log;
 import android.widget.TextView;
 
 import javax.crypto.spec.OAEPParameterSpec;
@@ -11,15 +13,15 @@ public class Snake {
     public static String direction = "left";
     public static String direction_0 = "up";
     public static float[] food = new float[3];
-    public static boolean[] run_l = new boolean[30];
-    public static boolean[] run_r = new boolean[30];
-    public static boolean[] run_t = new boolean[16];
-    public static boolean[] run_b = new boolean[16];
+    public static boolean[] run_l = new boolean[OpenGLRenderer.alpha_l.length];
+    public static boolean[] run_r = new boolean[OpenGLRenderer.alpha_r.length];
+    public static boolean[] run_t = new boolean[OpenGLRenderer.alpha_t.length];
+    public static boolean[] run_b = new boolean[OpenGLRenderer.alpha_b.length];
 
-    public static boolean[] close_l = new boolean[30];
-    public static boolean[] close_r = new boolean[30];
-    public static boolean[] close_t = new boolean[16];
-    public static boolean[] close_b = new boolean[16];
+    public static boolean[] close_l = new boolean[run_l.length];
+    public static boolean[] close_r = new boolean[run_r.length];
+    public static boolean[] close_t = new boolean[run_t.length];
+    public static boolean[] close_b = new boolean[run_b.length];
 
     static void move (){
         if (pick_ch == 0){
@@ -28,6 +30,8 @@ public class Snake {
                 OpenGLRenderer.snake_before_m[i] = OpenGLRenderer.snake_m[i];
             }
             for (int i = 0; i < OpenGLRenderer.col; i++){
+                if (!OpenGLRenderer.change_border[i])
+                    OpenGLRenderer.chb_dir[i] = -1;
                 OpenGLRenderer.change_border[i] = false;
             }
         }
@@ -123,6 +127,7 @@ public class Snake {
             if (pos[0] > OpenGLRenderer.k_right - OpenGLRenderer.a + 0.01f) {
                 OpenGLRenderer.snake_m[i - 2] = - OpenGLRenderer.a * 8 + OpenGLRenderer.speed;
                 OpenGLRenderer.change_border[i1] = true;
+                OpenGLRenderer.chb_dir[i1] = 0;
                 if (i1 == 0)
                     run_r[Math.round((pos[1] - OpenGLRenderer.k_bottom) / OpenGLRenderer.a)] = true;
                 else if (i1 == 1)
@@ -131,8 +136,9 @@ public class Snake {
                     close_r[Math.round((pos[1] - OpenGLRenderer.k_bottom) / OpenGLRenderer.a)] = true;
             }
             else if (pos[0] < OpenGLRenderer.k_left - 0.01f) {
-                OpenGLRenderer.snake_m[i - 2] = OpenGLRenderer.a * 8 - OpenGLRenderer.speed;
+                OpenGLRenderer.snake_m[i - 2] = OpenGLRenderer.a * 11 - OpenGLRenderer.speed;
                 OpenGLRenderer.change_border[i1] = true;
+                OpenGLRenderer.chb_dir[i1] = 1;
                 if (i1 == 0)
                     run_l[Math.round((pos[1] - OpenGLRenderer.k_bottom) / OpenGLRenderer.a) - 1] = true;
                 else if (i1 == 1)
@@ -141,8 +147,9 @@ public class Snake {
                     close_l[Math.round((pos[1] - OpenGLRenderer.k_bottom) / OpenGLRenderer.a) - 1] = true;
             }
             else if (pos[1] > OpenGLRenderer.k_top + 0.01f){
-                OpenGLRenderer.snake_m[i - 1] = - OpenGLRenderer.a * 21 + OpenGLRenderer.speed;
+                OpenGLRenderer.snake_m[i - 1] = - OpenGLRenderer.a * 24 + OpenGLRenderer.speed;
                 OpenGLRenderer.change_border[i1] = true;
+                OpenGLRenderer.chb_dir[i1] = 2;
                 if (i1 == 0)
                     run_t[Math.round((pos[0] - OpenGLRenderer.k_left) / OpenGLRenderer.a)] = true;
                 else if (i1 == 1)
@@ -153,6 +160,7 @@ public class Snake {
             else if (pos[1] < OpenGLRenderer.k_bottom + OpenGLRenderer.a - 0.01f){
                 OpenGLRenderer.snake_m[i - 1] = OpenGLRenderer.a * 9 - OpenGLRenderer.speed;
                 OpenGLRenderer.change_border[i1] = true;
+                OpenGLRenderer.chb_dir[i1] = 3;
                 if (i1 == 0)
                     run_b[Math.round((pos[0] - OpenGLRenderer.k_left) / OpenGLRenderer.a) + 1] = true;
                 else if (i1 == 1)
