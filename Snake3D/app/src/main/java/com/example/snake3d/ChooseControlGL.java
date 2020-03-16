@@ -376,55 +376,25 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         float[] control = {
                 //правая
                 0, 0, 0,
-//                -a / 2, -3 * a, 0,
                 0, -3 * a, 0,
 
-//                0, 0, 0,
-//                -a / 2, 0, 0,
-//                -a / 2, -3 * a, 0,
-
                 //верх
-//                -a / 2 + a / 4, 0, 0,
-//                -a + a / 4, -a / 2, 0,
-//                -a / 2 + a / 4, -a / 2, 0,
-
                 0, 0, 0,
                 -a + a / 4, 0, 0,
-//                -a + a / 4, -a / 2, 0,
 
                 //низ
-//                -a / 2 + a / 4, - 2 * a - a / 2, 0,
                 -a + a / 4, - 2 * a - a, 0,
                 0, - 2 * a - a, 0,
 
-//                -a / 2 + a / 4, - 2 * a - a / 2, 0,
-//                -a + a / 4, - 2 * a - a / 2, 0,
-//                -a + a / 4, - 2 * a - a, 0,
-
                 //верх лево
-//                -a + a / 4, 0, 0,
-//                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере a; 2a + a/4
-//                -a + a / 2 + a / 4, 0, 0,                   //используется в шейдере
-
                 -a + a / 4, 0, 0,
                 -a - a / 2 + a / 4, -a - a / 4, 0,
-//                -a - a / 2 + a / 4, -a - a - a / 4, 0,      //используется в шейдере
 
                 //низ лево
-//                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
                 -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
                 -a + a / 4, - 3 * a, 0,
 
-//                -a + a / 2 + a / 4, - 2 * a - a, 0,         //используется в шейдере
-//                -a - a / 2 + a / 4, -a + a / 2 - a / 4, 0,  //используется в шейдере
-//                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
-
                 //лево середина
-//                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
-//                -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
-//                -a + a / 4, -a - a / 2 - a / 4 - 0.1f * a, 0,
-
-//                -a + a / 4, -a - a / 4 + 0.1f * a, 0,
                 -a - a / 2 + a / 4, -a - a / 4, 0,
                 -a - a / 2 + a / 4, -a - a / 2 - a / 4, 0,
 
@@ -495,40 +465,20 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
     {
         float[] control = {
                 //нижняя
-//                a + a / 2, a / 2, 0,
                 -a - a / 2, 0, 0,
                 a + a / 2, 0, 0,
 
-//                a + a / 2, a / 2, 0,
-//                -a - a / 2, a / 2, 0,
-//                -a - a / 2, 0, 0,
-
                 //левая
-//                -a, 3 * a, 0,
-//                -a - a / 2, 0, 0,
-//                -a, 0, 0,
-
-//                -a, 3 * a, 0,
                 -a - a / 2, 3 * a, 0,
                 -a - a / 2, 0, 0,
 
                 //правая (право верх)
                 a + a / 2, 3 * a, 0,            //используется в шейдере
-//                a, 0, 0,
                 a + a / 2, 0, 0,
 
-//                a + a / 2, 3 * a, 0,            //используется в шейдере
-//                a, 2 * a + a / 2, 0,            //используется в шейдере
-//                a, 0, 0,
-
                 //верхняя (лево верх)
-//                a + a / 2, 3 * a, 0,            //используется в шейдере
-//                -a - a / 2, 2 * a + a / 2, 0,
-//                a, 2 * a + a / 2, 0,            //используется в шейдере
-
                 a + a / 2, 3 * a, 0,            //используется в шейдере
                 -a - a / 2, 3 * a, 0,
-//                -a - a / 2, 2 * a + a / 2, 0,
 
 
                 ///////Отрисовка этой херни сверху 2.0
@@ -664,12 +614,14 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         float mnoz0 = 2.5f;
         float mnoz1 = 2.5f;
 
-        k_right = right * mnoz0;
-        k_left = left * mnoz0;
-        k_top = top * mnoz1;
-        k_bottom = bottom * mnoz1;
+        float x = 1.9740741f / top;
 
-        a = (k_right - k_left) / 15;
+        k_right = right / x * mnoz0 + 0.5f;
+        k_left = left / x * mnoz0 - 0.5f;
+        k_top = top * mnoz1 + 0.5f;
+        k_bottom = -k_top;
+
+        a = (k_right - k_left) / 18;
 
         k_bottom = k_top - (int) ((k_top - k_bottom) / a) * a;
 
@@ -918,7 +870,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         // точка положения камеры
         eyeX = 0;//0
         eyeY = -1.321f;//-0.321f
-        eyeZ = 4.3f;//3.45f
+        eyeZ = 5f;//3.45f
         camera[0] = eyeX;
         camera[1] = eyeY;
         camera[2] = eyeZ;
@@ -1000,7 +952,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
     }
 
     private void draw_wall_vert(int i0, float k, int rot, float x) {
-        for (int i = i0; i < 15 + i0; i++) {
+        for (int i = i0; i < 18 + i0; i++) {
             Matrix.rotateM(mRotateMatrix, 0, rot, 0, 0, 1);
             Matrix.translateM(mModelMatrix, 0, k_left + a * i + x, k, z2);//+x, чтобы копировать вправо/влево
             bindMatrix();
@@ -1012,7 +964,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
     }
 
     private void draw_wall_hor(int i0, float k, int rot, float y) {
-        for (int i = i0; i < 29 + i0; i++) {
+        for (int i = i0; i < 32 + i0; i++) {
             Matrix.rotateM(mRotateMatrix, 0, rot, 0, 0, 1);
             Matrix.translateM(mModelMatrix, 0, k, k_bottom + a * i + y, z2);//+y, чтобы копировать вверх/вниз
             bindMatrix();
@@ -1599,12 +1551,12 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         Matrix.translateM(mModelMatrix, 0, -3f * a, tmp_z + 2 * a, -k_top + 0.001f);
         bindMatrix();
 
-        glDrawArrays(GL_TRIANGLES, 130, 6);//лево низ
-        glDrawArrays(GL_TRIANGLES, 124, 6);//лево верх
-        glDrawArrays(GL_TRIANGLES, 106, 6);//правая
-        glDrawArrays(GL_TRIANGLES, 136, 6);//лево середина
-        glDrawArrays(GL_TRIANGLES, 112, 6);//верхняя
-        glDrawArrays(GL_TRIANGLES, 118, 6);//нижняя
+        glDrawArrays(GL_TRIANGLES, 106, 6);//лево низ
+        glDrawArrays(GL_TRIANGLES, 100, 6);//лево верх
+        glDrawArrays(GL_TRIANGLES, 82, 6);//правая
+        glDrawArrays(GL_TRIANGLES, 112, 6);//лево середина
+        glDrawArrays(GL_TRIANGLES, 88, 6);//верхняя
+        glDrawArrays(GL_TRIANGLES, 94, 6);//нижняя
 
         glUniform4f(new_Color, 0, 0, 0, 0);
         Matrix.setIdentityM(mModelMatrix, 0);
@@ -1786,7 +1738,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
 
         glUniform4f(new_Color, 0, 1, 1, 1);
 
-        glDrawArrays(GL_TRIANGLES, 166, 6);
+        glDrawArrays(GL_TRIANGLES, 126, 6);
 
         glUniform4f(new_Color, 0, 0, 0, 0);
 
@@ -1803,15 +1755,15 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             buttons0(0);
             buttons0(1);
         }
-//        ass0(0);
-//        ass0(1);
+        ass0(0);
+        ass0(1);
 
         glUniform1i(chooseC, 1);
         if (!fig0)
             for (int i = 0; i < 4; i++)
                 buttons1(i);
-//        for (int i = 0; i < 4; i++)
-//            ass1(i);
+        for (int i = 0; i < 4; i++)
+            ass1(i);
     }
 
     void polzunok()
@@ -1944,7 +1896,7 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
         right_top = false;
         left_bottom = false;
         right_bottom = false;
-        draw_setka(0, 0);
+//        draw_setka(0, 0);
 
         floar_main();
 
@@ -2312,20 +2264,20 @@ public class ChooseControlGL extends GLSurfaceView implements Renderer {
             else if (end[0] > k_right - 0.35f * a)
                 tmpX = k_right - 0.35f * a;
             if (fig0) {
-                scale = tmpX / ((k_right - 0.35f * a) / 1.8f) + 3.8f;
+                scale = tmpX / ((k_right - 0.35f * a) / 3f) + 3.8f;
                 border0 = checkTap0();
                 if (border0[0] < k_left || border0[1] > k_right || border0[2] < k_bottom || border0[3] > k_top){//Проверка на выход за пределы при скэйле
                     tmpX = limit;
-                    scale = tmpX / ((k_right - 0.35f * a) / 1.8f) + 3.8f;
+                    scale = tmpX / ((k_right - 0.35f * a) / 3f) + 3.8f;
                     border0 = checkTap0();
                 }
             }
             else {
-                scale = tmpX / ((k_right - 0.35f * a) / 0.25f) + 0.75f;
+                scale = tmpX / ((k_right - 0.35f * a) / 0.45f) + 0.75f;
                 border = checkTap();
                 if (border[0] < k_left || border[1] > k_right || border[2] < k_bottom || border[3] > k_top) {//Проверка на выход за пределы при скэйле
                     tmpX = limit;
-                    scale = tmpX / ((k_right - 0.35f * a) / 0.25f) + 0.75f;
+                    scale = tmpX / ((k_right - 0.35f * a) / 0.45f) + 0.75f;
                     border = checkTap();
                 }
             }

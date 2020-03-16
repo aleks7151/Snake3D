@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.hardware.SensorManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
@@ -84,6 +85,7 @@ import static android.opengl.GLES20.GL_DEPTH_TEST;
 import static android.opengl.GLES20.glEnable;
 import static android.opengl.GLES30.glDrawBuffers;
 import static android.opengl.GLES30.glReadBuffer;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class OpenGLRenderer extends GLSurfaceView implements Renderer {
 
@@ -286,7 +288,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         GLES20.glAttachShader(programId, fragmentShaderId); // добавляем в нее шейдер фрагментов
         GLES20.glLinkProgram(programId);
         glUseProgram(programId);
-        createViewMatrix();
+        createViewMatrix(0, 0);
         createProjectionMatrix(width_context, height_context);
         prepareData();
         bindData();
@@ -600,6 +602,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
     int fig;
     private float[] readControl()
     {
+
         int space = 0;
         String filename = "control.snake";
         FileInputStream foss;
@@ -616,9 +619,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         float[] control = new float[space];
-
         for (int i = 0; i < space; i++)
             control[i] = 0;
 
@@ -628,6 +629,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         boolean check_float = true;
         boolean fs = true;
         boolean min = false;
+
         try {
             foss = context.openFileInput(filename);
             ObjectInputStream oos = new ObjectInputStream(foss);
@@ -654,7 +656,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
                     tmp = 0;
                     len_tmp = 10;
                 }
-                else if ((char) b == ',')
+                else if ((char) b == ',' || (char)b == '.')
                     check_float = false;
                 else if ((char)b == '-')
                     min = true;
@@ -685,7 +687,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
                     num++;
                     min = false;
                 }
-                else if ((char)b == ',')
+                else if ((char)b == ',' || (char)b == '.')
                     check_float = false;
                 else if ((char)b == '-')
                     min = true;
@@ -719,10 +721,14 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         float mnoz0 = 2.5f;
         float mnoz1 = 2.5f;
 
-        k_right = right * mnoz0 + 0.5f;
-        k_left = left * mnoz0 - 0.5f;
+        float x = 1.9740741f / top;
+
+        k_right = right / x * mnoz0 + 0.5f;
+        k_left = left / x * mnoz0 - 0.5f;
         k_top = top * mnoz1 + 0.5f;
         k_bottom = -k_top;//bottom * mnoz1;
+
+        Log.d("lrtb", "width: " + width_context + "  height: " + height_context + "||  right: " + right + "  top: " + top + "  left: " + left + "  bottom: " + bottom + "||  k_right: " + k_right  + "  k_top: " + k_top + "  k_left: " + k_left + "  k_bottom: " + k_bottom);
 
         a = (k_right - k_left) / 18f;
         b = 6;
@@ -787,44 +793,47 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
             a_s++;
         }
 
-        if (fig == 0) {
-            vertices[a_s] = centerX;
-            a_s++;
-            vertices[a_s] = k_bottom;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-            a_s++;
-            vertices[a_s] = centerX;
-            a_s++;
-            vertices[a_s] = k_top;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-        }
-        else{
-            vertices[a_s] = centerX + k_right;
-            a_s++;
-            vertices[a_s] = centerY + k_top;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-            a_s++;
-            vertices[a_s] = centerX - k_right;
-            a_s++;
-            vertices[a_s] = centerY - k_top;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-            a_s++;
-            vertices[a_s] = centerX + k_right;
-            a_s++;
-            vertices[a_s] = centerY - k_top;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-            a_s++;
-            vertices[a_s] = centerX - k_right;
-            a_s++;
-            vertices[a_s] = centerY + k_top;
-            a_s++;
-            vertices[a_s] = control[control.length - 1];
-        }
+//        if (fig == 0) {
+//            vertices[a_s] = centerX;
+//            a_s++;
+//            vertices[a_s] = k_bottom;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//            vertices[a_s] = centerX;
+//            a_s++;
+//            vertices[a_s] = k_top;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//        }
+//        else {
+//            vertices[a_s] = centerX + k_right;
+//            a_s++;
+//            vertices[a_s] = centerY + k_top;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//            vertices[a_s] = centerX - k_right;
+//            a_s++;
+//            vertices[a_s] = centerY - k_top;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//            vertices[a_s] = centerX + k_right;
+//            a_s++;
+//            vertices[a_s] = centerY - k_top;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//            vertices[a_s] = centerX - k_right;
+//            a_s++;
+//            vertices[a_s] = centerY + k_top;
+//            a_s++;
+//            vertices[a_s] = control[control.length - 1];
+//            a_s++;
+//        }
+
 
 
 
@@ -1001,18 +1010,18 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
     float eyeX;
     float eyeY;
     float eyeZ;
-    private void createViewMatrix() {
+    private void createViewMatrix(float x, float y) {
         // точка положения камеры
-        eyeX = -0.1f;//0
-        eyeY = 0.9f;//-0.321f;//-0.321f
+        eyeX = -0.1f + x;//0
+        eyeY = 0.9f - y;//-0.321f;//-0.321f
         eyeZ = 4.3f;//4.8f;//3.45f
         camera[0] = eyeX;
         camera[1] = eyeY;
         camera[2] = eyeZ;
 
         // точка направления камеры
-        float centerX = -0.1f;
-        float centerY = 0.9f;//0.4f;//0.041f;//0.041f
+        float centerX = -0.1f + x / 2;
+        float centerY = 0.9f - y / 2;//0.4f;//0.041f;//0.041f
         float centerZ = 0;
 
         // up-вектор
@@ -1022,6 +1031,8 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
 
         Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
         Matrix.invertM(invertView, 0, mViewMatrix, 0);
+        Matrix.multiplyMM(mMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+        glUniformMatrix4fv(uMatrixLocation, 1, false, mMatrix, 0);
     }
 
     private void createProjectionMatrix(int width, int height) {
@@ -1054,13 +1065,13 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
     }
 
     private void draw_setka(float x, float y) {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 19; i++) {
             Matrix.translateM(mModelMatrix, 0, a * i + x, y, 0);
             bindMatrix();
             glDrawArrays(GL_LINES, 0, 2);
             Matrix.setIdentityM(mModelMatrix, 0);
         }
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 33; i++) {
             Matrix.translateM(mModelMatrix, 0, x, -a * i + y, 0);
             bindMatrix();
             glDrawArrays(GL_LINES, 2, 2);
@@ -1164,9 +1175,8 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
 
         glUniform4f(new_Color, color_floar[0], color_floar[1], color_floar[2], 1);
         glDrawArrays(GL_TRIANGLES, 10, 24);//ВКЛЮЧИТЬ
+
         glUniform4f(new_Color, 0, 0, 0, 0);
-        Matrix.setIdentityM(mModelMatrix, 0);
-        bindMatrix();
     }
 
     private void wall_main() {
@@ -1678,11 +1688,43 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         }
     }
 
+    private float changeCamX = 0;
+    private float changeCamY = 0;
+    private float diffX = 0;
+    private float diffY = 0;
+    public void changeCam(float x, float y, float z)
+    {
+        changeCamX = x / 2f;
+        changeCamY = y / 2f;
+        diffX = (changeCamX - changeCamX_f) / 15f;
+        diffY = (changeCamY - changeCamY_f) / 15f;
+    }
+
 //    private long FPStime = System.currentTimeMillis();
 //    private int FPScount = 0;
 
+    private float changeCamX_f = 0;
+    private float changeCamY_f = 0;
     @Override
     public void onDrawFrame(GL10 arg0) {
+        if (changeCamX_f < changeCamX - 0.1f || changeCamX_f > changeCamX + 0.1f)
+            changeCamX_f += diffX;
+        float x = changeCamX_f;
+        if (x > 1.5f)
+            x = 1.5f;
+        else if (x < -1.5f)
+            x = -1.5f;
+
+        if (changeCamY_f < changeCamY - 0.1f || changeCamY_f > changeCamY + 0.1f)
+            changeCamY_f += diffY;
+        float y = changeCamY_f;
+        if (y > 1.5f)
+            y = 1.5f;
+        else if (y < -1.5f)
+            y = -1.5f;
+        createViewMatrix(x, y);
+
+
         if (System.currentTimeMillis() - time > 13 && start){
             Snake.move();
             time = System.currentTimeMillis();
