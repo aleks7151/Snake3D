@@ -597,6 +597,14 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
 
     float tmp_z;//УБРАТЬ
 
+    private float[] notReadControl()
+    {
+        SaveControl Sc = new SaveControl(a, context);
+        Sc.getControlSecond();
+        Sc.recordControl(false, 0, 0, 0, tmp_z, 1.2f);
+        return null;
+    }
+
     float centerX = 0;
     float centerY = 0;
     int fig;
@@ -616,6 +624,7 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
                     space++;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return notReadControl();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -768,6 +777,8 @@ public class OpenGLRenderer extends GLSurfaceView implements Renderer {
         float[] vertices_0 = init_vertices_0();
 
         float [] control = readControl();
+        if (control == null)
+            control = readControl();
         len_control = control.length / 3;
 
         float[] vertices = new float[vertices_0.length + ch_setka + snake_ch + 2 * 2 * 3 * 3 + control.length + /*Прямые вместо кнопок*/12];
